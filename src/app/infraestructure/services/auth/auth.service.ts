@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginRequest } from '../../core/models/login-request.model';
-import { LoginResponse } from '../../core/models/login-response.model';
+import { LoginRequest } from '../../../core/models/login-request.model';
+import { LoginResponse } from '../../../core/models/login-response.model';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -30,6 +30,5 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
-    
-  }
+    }
 }

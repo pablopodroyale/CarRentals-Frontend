@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/layout/layout/layout.component';
-import { AuthGuard } from './infraestructure/interceptors/auth.guard';
+import { AuthGuard } from './infraestructure/interceptors/auth.guard'; // ✔️ corregido
 
 export const routes: Routes = [
   {
@@ -32,7 +32,7 @@ export const routes: Routes = [
         path: 'rentals',
         canActivate: [AuthGuard],
         loadComponent: () =>
-          import('./presentation/pages/rentals/rentals.component').then(m => m.RentalsComponent),
+          import('./presentation/pages/rentals/rentals-register.component').then(m => m.RegisterRentalComponent),
       },
       {
         path: 'stats',
