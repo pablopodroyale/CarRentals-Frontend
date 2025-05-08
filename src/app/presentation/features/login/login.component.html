@@ -1,0 +1,39 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <h1 class="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+      >
+        Ingresar
+      </button>
+
+      <p *ngIf="error" class="text-red-600 text-sm text-center">{{ error }}</p>
+    </form>
+
+    <p class="mt-4 text-sm text-center text-gray-600">
+      ¿No tenés cuenta?
+      <a routerLink="/register" class="text-blue-600 hover:underline">Registrate</a>
+    </p>
+  </div>
+</div>
