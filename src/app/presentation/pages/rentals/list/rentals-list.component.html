@@ -1,0 +1,37 @@
+<section class="max-w-5xl mx-auto mt-10">
+    <h2 class="text-xl font-bold mb-4 text-gray-800">📋 Rentals List</h2>
+  
+    <!-- Mostrar mensaje si no hay rentals -->
+    <div *ngIf="rentals().length === 0" class="text-center text-gray-500 py-8">
+      No rentals available.
+    </div>
+  
+    <!-- Mostrar tabla si hay rentals -->
+    <table *ngIf="rentals().length > 0" class="min-w-full border rounded shadow bg-white">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 text-left">Customer</th>
+          <th class="px-4 py-2 text-left">Car</th>
+          <th class="px-4 py-2 text-left">Location</th>
+          <th class="px-4 py-2 text-left">Start</th>
+          <th class="px-4 py-2 text-left">End</th>
+          <th class="px-4 py-2 text-left">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rentals()" class="border-t">
+          <td class="px-4 py-2">{{ r.customer.fullName }}</td>
+          <td class="px-4 py-2">{{ r.car.type }} - {{ r.car.model }}</td>
+          <td class="px-4 py-2">{{ r.car.location }}</td>
+          <td class="px-4 py-2">{{ r.startDate | date }}</td>
+          <td class="px-4 py-2">{{ r.endDate | date }}</td>
+          <td class="px-4 py-2">
+            <span [ngClass]="r.isCanceled ? 'text-red-500' : 'text-green-600'">
+              {{ r.isCanceled ? 'Canceled' : 'Active' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  

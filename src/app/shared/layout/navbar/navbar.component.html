@@ -1,14 +1,29 @@
-<!-- layout.component.html -->
 <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
   <div class="text-xl font-bold text-blue-600">
-    Car Rentals
+    <a routerLink="/home" routerLinkActive="text-blue-800">Car Rentals</a> 
   </div>
-  <div class="space-x-4">
+
+  <div class="space-x-4 flex items-center relative">
     <a routerLink="/home" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Home</a>
-    <a routerLink="/rentals" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Rentals</a>
+    <!-- Rentals dropdown 100% funcional -->
+    <div class="relative group">
+      <button class="text-gray-700 hover:text-blue-600 focus:outline-none">
+        Rentals
+      </button>
+
+      <!-- 🔽 Este bloque permanece visible mientras estás sobre el grupo completo -->
+      <div class="absolute left-0 mt-2 w-48 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-150 z-50">
+        <a routerLink="/rentals/create"
+           class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Create Rental</a>
+        <a routerLink="/rentals/list"
+           class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Rental List</a>
+      </div>
+    </div>
+
     <a routerLink="/stats" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Stats</a>
     <a routerLink="/services" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Services</a>
-    <button (click)="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
+
+    <button (click)="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white">
       Logout
     </button>
   </div>

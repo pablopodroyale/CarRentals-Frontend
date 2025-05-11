@@ -3,6 +3,7 @@
   import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
   import { RentalService } from '../../../infraestructure/services/rental/rental.service';
   import { RegisterRentalRequest } from 'src/app/core/models/register-rental-request.model';
+import { Router } from '@angular/router';
 
   @Component({
     selector: 'app-register-rental',
@@ -15,7 +16,7 @@
     confirmationMessage = '';
     errorMessage = '';
 
-    constructor(private fb: FormBuilder, private rentalService: RentalService) {
+    constructor(private fb: FormBuilder, private rentalService: RentalService, private router: Router) {
       this.form = this.fb.group({
         customerId: ['', Validators.required],
         carType: ['', Validators.required],
@@ -55,6 +56,7 @@
         next: () => {
           this.confirmationMessage = `Rental confirmed.`;
           this.form.reset();
+          this.router.navigate(['/rentals/list']);
         },
         error: (error) => {
           this.errorMessage = error.error.error || 'Error. Try again.';

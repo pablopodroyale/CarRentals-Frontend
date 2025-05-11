@@ -29,10 +29,16 @@ export const routes: Routes = [
           import('./presentation/pages/home/home.component').then(m => m.HomeComponent),
       },
       {
-        path: 'rentals',
+        path: 'rentals/create',
         canActivate: [AuthGuard],
         loadComponent: () =>
           import('./presentation/pages/rentals/rentals-register.component').then(m => m.RegisterRentalComponent),
+      },
+      {
+        path: 'rentals/list',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./presentation/pages/rentals/list/rentals-list.component').then(m => m.RentalsListComponent),
       },
       {
         path: 'stats',

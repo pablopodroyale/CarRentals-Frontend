@@ -10,6 +10,7 @@ import { AuthService } from '../../../infraestructure/services/auth/auth.service
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
+  isHovering = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 

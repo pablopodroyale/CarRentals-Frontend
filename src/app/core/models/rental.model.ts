@@ -12,4 +12,5 @@ export interface Rental {
   };
   startDate: string; // ISO format
   endDate: string;
+  isCanceled?: boolean; // Optional, default to false
 }
