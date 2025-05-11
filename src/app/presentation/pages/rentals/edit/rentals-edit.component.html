@@ -4,12 +4,12 @@
     <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
       <div>
         <label class="block text-sm font-medium text-gray-700">New Start Date</label>
-        <input type="date" formControlName="newStartDate" class="w-full border p-2 rounded" />
+        <input type="date" [min]="today" formControlName="newStartDate" class="w-full border p-2 rounded" />
       </div>
   
       <div>
         <label class="block text-sm font-medium text-gray-700">New End Date</label>
-        <input type="date" formControlName="newEndDate" class="w-full border p-2 rounded" />
+        <input type="date" [min]="today" formControlName="newEndDate" class="w-full border p-2 rounded" />
       </div>
   
       <div>

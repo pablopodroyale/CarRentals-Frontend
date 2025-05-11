@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
     form: FormGroup;
     confirmationMessage = '';
     errorMessage = '';
+    today: string;
 
     constructor(private fb: FormBuilder, private rentalService: RentalService, private router: Router) {
       this.form = this.fb.group({
@@ -24,6 +25,8 @@ import { Router } from '@angular/router';
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
       });
+
+      this.today = new Date().toISOString().split('T')[0]; // formato 'YYYY-MM-DD'
     }
 
     submit() {

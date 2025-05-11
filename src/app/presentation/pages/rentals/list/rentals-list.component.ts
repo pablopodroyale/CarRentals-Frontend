@@ -37,9 +37,27 @@ export class RentalsListComponent {
     }
   }
   
-
   editRental(id: string | undefined) {
     if (!id) return;
     this.router.navigate(['/rentals/edit', id]);
+  }
+
+  cancelRental(id: string | undefined) {
+    if (!id) return;
+  
+    if (!confirm('Are you sure you want to cancel this rental?')) return;
+  
+    this.rentalService.cancelRental(id).subscribe({
+      next: () => {
+        const updated = this.rentals().map(r =>
+          r.id === id ? { ...r, isCanceled: true } : r
+        );
+        this.rentals.set(updated);
+        this.indexedDbService.saveRentals(updated); // opcional: actualizar IndexedDB
+      },
+      error: () => {
+        alert('Error cancelling rental.');
+      }
+    });
   }
 }

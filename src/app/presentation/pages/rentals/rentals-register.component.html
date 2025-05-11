@@ -17,11 +17,11 @@
         </div>
         <div>
           <label class="block">Start Date</label>
-          <input type="date" formControlName="startDate" class="w-full border p-2 rounded" />
+          <input type="date" formControlName="startDate" [min]="today" class="w-full border p-2 rounded" />
         </div>
         <div>
           <label class="block">End Date</label>
-          <input type="date" formControlName="endDate" class="w-full border p-2 rounded" />
+          <input type="date" formControlName="endDate" [min]="today" class="w-full border p-2 rounded" />
         </div>
   
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Submit</button>
