@@ -53,7 +53,7 @@ describe('LoginComponent', () => {
       email: 'test@example.com',
       password: '123456'
     });
-    expect(router.navigate).toHaveBeenCalledWith(['/rentals']);
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
     expect(component.error).toBe('');
   }));
 

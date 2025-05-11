@@ -24,7 +24,7 @@ export class LoginComponent {
   submit() {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe({
-        next: () => this.router.navigate(['/rentals']),
+        next: () => this.router.navigate(['/home']),
         error: () => this.error = 'Invalid credentials. Please try again.',
       });
     }

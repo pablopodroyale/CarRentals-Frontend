@@ -1,40 +1,29 @@
-import { Component } from '@angular/core';
-import { signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { CarService } from '../../../infraestructure/services/car/car.service';
 import { Car } from 'src/app/core/models/car.model';
+import { CarFilterComponent } from './filter/car-filter.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './home.component.html',
+  imports: [CommonModule, CarFilterComponent],
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  cars = signal<Car[]>([]);
+  availableCars = signal<Car[]>([]);
 
-  constructor() {
-  }
+  constructor(private carService: CarService) {}
 
-  // Lógica para cargar autos disponibles más adelante
-  ngOnInit() {
-    // Simulación de carga de autos
-    const loadedCars: Car[] = [
-      {
-        id: '1',
-        type: 'SUV',
-        model: 'Toyota RAV4',
-        location: 'Ezeiza',
-        services: [{ date: new Date('2025-05-20') }],
-      },
-      {
-        id: '2',
-        type: 'Sedan',
-        model: 'Honda Civic',
-        location: 'Aeroparque',
-        services: [{ date: new Date('2025-06-15') }],
-      },
-    ];
+  search(filters: any) {
+    const payload = {
+      ...filters,
+      startDate: new Date(filters.startDate).toISOString(),
+      endDate: new Date(filters.endDate).toISOString()
+    };
 
-    this.cars.set(loadedCars);
+    this.carService.getAvailableCars(payload).subscribe(result => {
+      this.availableCars.set(result);
+    });
   }
 }

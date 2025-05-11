@@ -1,10 +1,30 @@
-<h1 class="text-2xl font-bold text-center">Buscar Autos</h1>
+<app-car-filter (filterSubmit)="search($event)" />
 
-<form class="my-4">
-</form>
+<section class="max-w-5xl mx-auto mt-10" *ngIf="availableCars">
+  <h2 class="text-xl font-bold mb-4 text-gray-800">🚗 Available Cars</h2>
 
-<ul class="list-disc pl-5">
-  <li *ngFor="let car of cars()">
-    {{ car.model }} - {{ car.type }}
-  </li>
-</ul>
+  <ng-container *ngIf="availableCars().length > 0; else noCars">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border rounded shadow">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Type</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Model</th>
+            <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of availableCars()" class="border-t">
+            <td class="px-4 py-2">{{ car.type }}</td>
+            <td class="px-4 py-2">{{ car.model }}</td>
+            <td class="px-4 py-2">{{ car.location }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-template #noCars>
+    <div class="text-center text-gray-500 mt-4">🚫 No cars available for the selected dates.</div>
+  </ng-template>
+</section>
