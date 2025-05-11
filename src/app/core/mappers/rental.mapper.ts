@@ -10,6 +10,7 @@ export function mapRentalDtoToModel(dto: RentalDto): Rental {
       address: dto.address
     },
     car: {
+      id: dto.carId,
       type: dto.carType,
       model: dto.model,
       location: dto.location
@@ -27,6 +28,7 @@ export function mapRentalModelToDto(model: Rental): RentalDto {
     fullName: model.customer.fullName,
     address: model.customer.address,
     carType: model.car.type,
+    carId: model.car.id,
     model: model.car.model,
     location: model.car.location,
     startDate: model.startDate,

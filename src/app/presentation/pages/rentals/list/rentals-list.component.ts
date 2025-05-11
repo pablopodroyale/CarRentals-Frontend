@@ -3,6 +3,7 @@ import { RentalService } from 'src/app/infraestructure/services/rental/rental.se
 import { Rental } from 'src/app/core/models/rental.model';
 import { CommonModule } from '@angular/common';
 import { IndexedDbService } from 'src/app/infraestructure/services/index-db/indexed-db.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rentals-list',
@@ -14,14 +15,31 @@ export class RentalsListComponent {
   rentals = signal<Rental[]>([]);
   customerId: string | undefined;
 
-  constructor(private rentalService: RentalService, private indexedDbService: IndexedDbService) {
+  constructor(private rentalService: RentalService, private indexedDbService: IndexedDbService, private router: Router) {
+    this.customerId = undefined;
   }
 
   async ngOnInit() {
     this.customerId = await this.indexedDbService.getEmail();
     if (this.customerId) {
-      this.rentalService.getAllRentals(this.customerId)
-                        .subscribe(res => this.rentals.set(res));
+      this.rentalService.getAllRentals(this.customerId).subscribe({
+        next: rentals => {
+          this.rentals.set(rentals);
+          this.indexedDbService.saveRentals(rentals); 
+        },
+        error: () => {
+          // (opcional) fallback a IndexedDB
+          this.indexedDbService.getRentals().then(cached => {
+            this.rentals.set(cached);
+          });
+        }
+      });
     }
+  }
+  
+
+  editRental(id: string | undefined) {
+    if (!id) return;
+    this.router.navigate(['/rentals/edit', id]);
   }
 }

@@ -41,6 +41,12 @@ export const routes: Routes = [
           import('./presentation/pages/rentals/list/rentals-list.component').then(m => m.RentalsListComponent),
       },
       {
+        path: 'rentals/edit/:id',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import('./presentation/pages/rentals/edit/rentals-edit.component').then(m => m.RentalsEditComponent),
+      },
+      {
         path: 'stats',
         canActivate: [AuthGuard],
         loadComponent: () =>

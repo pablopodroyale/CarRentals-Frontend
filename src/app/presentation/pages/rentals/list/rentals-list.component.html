@@ -16,6 +16,8 @@
           <th class="px-4 py-2 text-left">Start</th>
           <th class="px-4 py-2 text-left">End</th>
           <th class="px-4 py-2 text-left">Status</th>
+          <th class="px-4 py-2 text-left">Actions</th>
+
         </tr>
       </thead>
       <tbody>
@@ -30,6 +32,15 @@
               {{ r.isCanceled ? 'Canceled' : 'Active' }}
             </span>
           </td>
+          <td class="px-4 py-2">
+            <button
+              *ngIf="!r.isCanceled"
+              class="text-blue-600 hover:underline"
+              (click)="editRental(r.id)">
+              Edit
+            </button>
+          </td>
+          
         </tr>
       </tbody>
     </table>

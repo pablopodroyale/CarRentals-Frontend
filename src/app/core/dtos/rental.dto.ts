@@ -4,6 +4,7 @@ export interface RentalDto {
     fullName: string;
     address: string;
     carType: string;
+    carId: string;
     model: string;
     location: string;
     startDate: string;

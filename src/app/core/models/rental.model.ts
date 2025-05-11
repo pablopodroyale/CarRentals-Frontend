@@ -6,6 +6,7 @@ export interface Rental {
     address: string;
   };
   car: {
+    id: string;
     type: string;
     model: string;
     location: string;

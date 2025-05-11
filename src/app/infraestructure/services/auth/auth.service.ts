@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+ 
   private readonly baseUrl = `${environment.apiUrl}/auth`;
 
   constructor(private http: HttpClient) {}
@@ -30,5 +31,12 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
-    }
+  }
+
+  getRole(): string | null{
+    const token = this.getToken();
+    if (!token) return null;
+  
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload?.role || null;  }
 }

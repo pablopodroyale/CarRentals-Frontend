@@ -1,0 +1,40 @@
+<section class="max-w-2xl mx-auto bg-white shadow-md rounded p-6 mt-10">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">✏️ Edit Rental</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">New Start Date</label>
+        <input type="date" formControlName="newStartDate" class="w-full border p-2 rounded" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">New End Date</label>
+        <input type="date" formControlName="newEndDate" class="w-full border p-2 rounded" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Car Type</label>
+        <input type="text" formControlName="newCarType" class="w-full border p-2 rounded" placeholder="e.g. SUV" />
+      </div>
+  
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Car Model</label>
+        <input type="text" formControlName="newCarModel" class="w-full border p-2 rounded" placeholder="e.g. Toyota RAV4" />
+      </div>
+  
+      <div class="text-right">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  
+    <!-- Mensajes de confirmación o error -->
+    <div *ngIf="confirmation" class="mt-4 text-green-600 font-medium">
+      {{ confirmation }}
+    </div>
+    <div *ngIf="error" class="mt-4 text-red-600 font-medium">
+      {{ error }}
+    </div>
+  </section>
+  
