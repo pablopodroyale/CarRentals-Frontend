@@ -1,0 +1,25 @@
+<div class="mb-6">
+    <h3 class="font-semibold text-lg mb-2">🔧 Upcoming Services (next 2 weeks)</h3>
+    <ng-container *ngIf="upcomingServices.length > 0; else noUpcoming">
+      <table class="w-full text-left border-collapse">
+        <thead class="text-sm text-gray-600 border-b">
+          <tr>
+            <th class="py-2">Model</th>
+            <th class="py-2">Type</th>
+            <th class="py-2">Service Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of upcomingServices" class="border-b">
+            <td class="py-1">{{ car.model }}</td>
+            <td class="py-1">{{ car.type }}</td>
+            <td class="py-1">{{ car.nextServiceDate | date: 'yyyy-MM-dd' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-template #noUpcoming>
+      <p class="text-gray-500 italic pl-6">No upcoming services found.</p>
+    </ng-template>
+  </div>
+  

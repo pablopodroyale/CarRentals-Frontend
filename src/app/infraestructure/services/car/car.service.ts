@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Car } from 'src/app/core/models/car.model';
+import { UpcomingServiceDto } from 'src/app/core/models/car/upcoming-service.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,5 +31,8 @@ export class CarService {
   
     return this.http.get<Car[]>(`${this.baseUrl}/available`, { params: queryParams });
   }
-  
+
+  getUpcomingServices(): Observable<UpcomingServiceDto[]> {
+    return this.http.get<UpcomingServiceDto[]>(`${this.baseUrl}/upcoming-service`);
+  }
 }

@@ -56,7 +56,7 @@ export const routes: Routes = [
         path: 'services',
         canActivate: [AuthGuard],
         loadComponent: () =>
-          import('./presentation/pages/services/services.component').then(m => m.ServicesComponent),
+          import('./presentation/pages/services/upcoming-services.component').then(m => m.UpcomingServicesComponent),
       },
     ],
   },

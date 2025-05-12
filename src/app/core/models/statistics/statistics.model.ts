@@ -21,4 +21,6 @@ export interface MostRentedCarDto {
     cancellations: number;
     unusedCars: number;
   }
+
+
   
