@@ -11,7 +11,7 @@ export class RentalsStoreService {
 
   setRentals(rentals: Rental[]) {
     this.rentalsSignal.set(rentals);
-    this.indexedDb.save('rentals', rentals); // guardar en IndexedDB
+    this.indexedDb.saveRentals(rentals); // guardar en IndexedDB
   }
 
   getRentalById(id: string): Rental | undefined {
@@ -19,7 +19,7 @@ export class RentalsStoreService {
   }
 
   async loadFromIndexedDb() {
-    const rentals = await this.indexedDb.get<Rental[]>('rentals');
+    const rentals = await this.indexedDb.getRentals();
     if (rentals) this.rentalsSignal.set(rentals);
   }
 }

@@ -5,29 +5,30 @@ import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { IndexedDbService } from 'src/app/infraestructure/services/index-db/indexed-db.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let router: Router;
+  const indexedDbServiceSpy = jasmine.createSpyObj('IndexedDbService', ['saveEmail']);
+  indexedDbServiceSpy.saveEmail.and.returnValue(Promise.resolve());
 
-  beforeEach(async () => {
+  beforeEach(async () => {  
     authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
 
     await TestBed.configureTestingModule({
-      imports: [
-        LoginComponent,
-        ReactiveFormsModule,
-        RouterTestingModule
-      ],
+      imports: [LoginComponent, ReactiveFormsModule, RouterTestingModule],
       providers: [
-        { provide: AuthService, useValue: authServiceSpy }
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: IndexedDbService, useValue: indexedDbServiceSpy } // 👈
       ]
     }).compileComponents();
+    
 
     router = TestBed.inject(Router);
-    spyOn(router, 'navigate'); // ✅ esto va después del TestBed
+    spyOn(router, 'navigate').and.returnValue(Promise.resolve(true));
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -40,15 +41,16 @@ describe('LoginComponent', () => {
 
   it('should call login and navigate on success', fakeAsync(() => {
     component.form.setValue({ email: 'test@example.com', password: '123456' });
-
+  
     authServiceSpy.login.and.returnValue(of({
       token: 'fake-jwt-token',
       expiration: new Date().toISOString()
     }));
-
+  
     component.submit();
-    tick();
-
+    tick(); // para suscribirse
+    tick(); // para el await
+  
     expect(authServiceSpy.login).toHaveBeenCalledWith({
       email: 'test@example.com',
       password: '123456'
@@ -56,6 +58,7 @@ describe('LoginComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
     expect(component.error).toBe('');
   }));
+  
 
   it('should show error on login failure', fakeAsync(() => {
     component.form.setValue({ email: 'fail@example.com', password: 'wrong' });
