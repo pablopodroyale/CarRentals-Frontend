@@ -1,1 +1,82 @@
-<p>statistics works!</p>
+<section class="p-4 max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6">📊 Statistics Dashboard</h2>
+  
+    <!-- Formulario de fechas -->
+    <form [formGroup]="form" (ngSubmit)="fetchStats()" class="flex gap-4 mb-6 items-end">
+      <div class="flex flex-col">
+        <label for="from" class="mb-1 text-sm font-medium">From</label>
+        <input type="date" id="from" [formControl]="form.controls.from" class="border px-2 py-1 rounded" />
+      </div>
+      <div class="flex flex-col">
+        <label for="to" class="mb-1 text-sm font-medium">To</label>
+        <input type="date" id="to" [formControl]="form.controls.to" class="border px-2 py-1 rounded" />
+      </div>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded shadow">Refresh</button>
+    </form>
+  
+    <!-- Tabla de Top 3 autos -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-2">🚗 Top 3 Most Rented Cars</h3>
+      <table class="min-w-full border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2 text-left">Type</th>
+            <th class="border px-4 py-2 text-left">Model</th>
+            <th class="border px-4 py-2 text-left">Times Rented</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of topCars">
+            <td class="border px-4 py-2">{{ car.type }}</td>
+            <td class="border px-4 py-2">{{ car.model }}</td>
+            <td class="border px-4 py-2">{{ car.timesRented }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Tabla de Utilization -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-2">📈 Utilization</h3>
+      <table *ngIf="utilization.length > 0" class="min-w-full border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2 text-left">Car Type</th>
+            <th class="border px-4 py-2 text-left">% Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of utilization">
+            <td class="border px-4 py-2">{{ u.type }}</td>
+            <td class="border px-4 py-2">{{ u.percentageUsed }}%</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="utilization.length === 0" class="text-gray-500 italic pl-1">No utilization data available.</p>
+    </div>
+  
+    <!-- Tabla de Daily Summary -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-2">📅 Daily Summary (last 7 days)</h3>
+      <table *ngIf="dailySummary.length > 0" class="min-w-full border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2 text-left">Date</th>
+            <th class="border px-4 py-2 text-left">Rentals</th>
+            <th class="border px-4 py-2 text-left">Cancellations</th>
+            <th class="border px-4 py-2 text-left">Unused Cars</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of dailySummary">
+            <td class="border px-4 py-2">{{ d.date.split('T')[0] }}</td>
+            <td class="border px-4 py-2">{{ d.rentals }}</td>
+            <td class="border px-4 py-2">{{ d.cancellations }}</td>
+            <td class="border px-4 py-2">{{ d.unusedCars }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="dailySummary.length === 0" class="text-gray-500 italic pl-1">No summary data available.</p>
+    </div>
+  </section>
+  
