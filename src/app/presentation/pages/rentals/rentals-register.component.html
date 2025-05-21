@@ -5,7 +5,11 @@
       <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
         <div>
           <label class="block">Customer ID</label>
-          <input formControlName="customerId" class="w-full border p-2 rounded" />
+            <input
+              formControlName="customerId"
+              class="w-full border p-2 rounded disabled blo"
+              readonly
+            />        
         </div>
         <div>
           <label class="block">Car Type</label>

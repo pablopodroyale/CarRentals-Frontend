@@ -4,6 +4,7 @@
   import { RentalService } from '../../../infraestructure/services/rental/rental.service';
   import { RegisterRentalRequest } from 'src/app/core/models/register-rental-request.model';
 import { Router } from '@angular/router';
+import { IndexedDbService } from 'src/app/infraestructure/services/index-db/indexed-db.service';
 
   @Component({
     selector: 'app-register-rental',
@@ -16,17 +17,25 @@ import { Router } from '@angular/router';
     confirmationMessage = '';
     errorMessage = '';
     today: string;
+    customerIdStored: string | undefined;
 
-    constructor(private fb: FormBuilder, private rentalService: RentalService, private router: Router) {
+
+    constructor(private fb: FormBuilder, private rentalService: RentalService, private router: Router,private indexDbService: IndexedDbService) {
+      this.customerIdStored = '';
+
       this.form = this.fb.group({
-        customerId: ['', Validators.required],
+        customerId: this.customerIdStored,
         carType: ['', Validators.required],
         model: ['', Validators.required],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
       });
-
       this.today = new Date().toISOString().split('T')[0]; // formato 'YYYY-MM-DD'
+    }
+
+    async ngOnInit(){
+      this.customerIdStored =  await this.indexDbService.getEmail();
+      this.form.patchValue({ customerId: this.customerIdStored });
     }
 
     submit() {
