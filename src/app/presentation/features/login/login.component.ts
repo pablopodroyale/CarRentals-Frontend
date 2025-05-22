@@ -34,6 +34,9 @@ export class LoginComponent {
         error: () => this.error = 'Invalid credentials. Please try again.',
       });
     }
+    else{
+      this.form.markAllAsTouched();
+    }
   }
 
   saveEmailToIndexedDB(email: string) {

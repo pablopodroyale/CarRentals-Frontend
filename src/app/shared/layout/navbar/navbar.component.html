@@ -21,7 +21,7 @@
     </div>
 
     <a  *ngIf="isAdmin" routerLink="/stats" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Stats</a>
-    <a routerLink="/services" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Services</a>
+    <a *ngIf="isAdmin" routerLink="/services" routerLinkActive="text-blue-800" class="text-gray-700 hover:text-blue-600">Services</a>
 
     <button (click)="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white">
       Logout
