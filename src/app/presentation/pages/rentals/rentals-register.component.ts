@@ -29,8 +29,9 @@ import { IndexedDbService } from 'src/app/infraestructure/services/index-db/inde
         model: ['', Validators.required],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
+        location: ['', Validators.required] 
       });
-      this.today = new Date().toISOString().split('T')[0]; // formato 'YYYY-MM-DD'
+      this.today = new Date().toLocaleDateString("en-CA").split('T')[0]; // formato 'YYYY-MM-DD'
     }
 
     async ngOnInit(){
@@ -61,7 +62,8 @@ import { IndexedDbService } from 'src/app/infraestructure/services/index-db/inde
         carType: raw.carType,
         model: raw.model,
         startDate: start.toISOString(),
-        endDate: end.toISOString()
+        endDate: end.toISOString(), 
+        location: raw.location
       };
     
       this.rentalService.registerRental(payload).subscribe({

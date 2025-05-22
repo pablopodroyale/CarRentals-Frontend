@@ -13,7 +13,6 @@ export class CarFilterComponent {
   form!: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this
     this.form = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -26,6 +25,9 @@ export class CarFilterComponent {
   submit() {
     if (this.form.valid) {
       this.filterSubmit.emit(this.form.value);
+    }
+    else{
+      this.form.markAllAsTouched();
     }
   }
 }

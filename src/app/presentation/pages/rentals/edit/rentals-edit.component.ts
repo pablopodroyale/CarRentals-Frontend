@@ -19,7 +19,7 @@ export class RentalsEditComponent implements OnInit {
   private router = inject(Router);
   private indexedDb = inject(IndexedDbService);
 
-  today: string = new Date().toISOString().split('T')[0];
+  today = new Date().toLocaleDateString("en-CA").split('T')[0]; // formato 'YYYY-MM-DD'
   form: FormGroup;
 
   rentalId = '';

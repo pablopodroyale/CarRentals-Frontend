@@ -5,11 +5,17 @@
       <div class="flex flex-col">
         <label class="text-sm font-medium text-gray-700 mb-1">Start Date</label>
         <input type="date" formControlName="startDate" class="border p-2 rounded" />
+         <span *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.touched" class="text-red-600 text-sm mt-1">
+            Start Date is required.
+        </span>
       </div>
   
       <div class="flex flex-col">
         <label class="text-sm font-medium text-gray-700 mb-1">End Date</label>
         <input type="date" formControlName="endDate" class="border p-2 rounded" />
+        <span *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.touched" class="text-red-600 text-sm mt-1">
+            End Date is required.
+        </span>
       </div>
   
       <div class="flex flex-col">
